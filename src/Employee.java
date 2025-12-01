@@ -5,37 +5,29 @@ public class Employee {
     private String fullName;
     private int department;
     private int salary;
-    // 2. Добавление статистической переменной-счетчика, которая ривечает за id.
+    // 2. Добавление статистической переменной-счетчика, которая отвечает за id.
     private static int idCounter;
+    // 3. Добавление в класс Employee поле id.
     private int id;
 
     public Employee (String fullName, int department, int salary) {
         this.fullName = fullName;
         this.department = department;
         this.salary = salary;
-    }
-
-    // 3. Добавление в класс Employee поля id.
-    public Employee () {
-        this.id = idCounter++;
+        id = idCounter++;
     }
 
     // 4. Скрытие прямого доступа к полям класса Employee, добавление возможности получать значения полей (геттеры) и устанавливать значение полей отдела и зарплаты (сеттеры).
-
     public String getFullName () {
-        return this.fullName;
+        return fullName;
     }
 
     public int getDepartment() {
-        return this.department;
+        return department;
     }
 
     public double getSalary() {
         return salary;
-    }
-
-    public static int getIdCounter () {
-        return idCounter;
     }
 
     public int getId () {
@@ -56,19 +48,28 @@ public class Employee {
         this.salary = salary;
     }
 
-    // 5. Реализация в классе Employee контракта equals.
-
+    // 5. Реализация контракта equals
     @Override
-    public boolean equals(Object other) {
-        if (this.getClass() != other.getClass()) {
-            return false;
-        }
-        Employee salaries = (Employee) other;
-        return salaries.equals(salaries.salary);
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return department == employee.department && salary == employee.salary && id == employee.id && Objects.equals(fullName, employee.fullName);
     }
 
     @Override
-    public int hashCode () {
-        return java.util.Objects.hash(salary);
+    public int hashCode() {
+        return Objects.hash(fullName, department, salary, id);
+    }
+
+    // 6. Реализация метода вывода информации о сотруднике.
+    @Override
+    public String toString () {
+        return "Сотрудник № " + idCounter + ": Ф.И.О. " + fullName + " работает в отделе №" +
+                department + " и полуает зарплату " + salary + " рублей";
+    }
+
+    // Отдельный метод для вывода имени и зарплаты
+    public void printShortInfo () {
+        System.out.println("Ф.И.О.: " + fullName + " зарплата - " + salary);
     }
 }
