@@ -75,11 +75,6 @@ public class EmployeeBook {
                     System.out.println("Неверный тип расчета налогов: " + taxType);
                     return;
             }
-
-            double taxAmount = salary * taxPercent / 100;
-            System.out.printf("Employee: %s, Salary: %.2f, Tax (%s): %.2f%n",
-                    employee.toString(), salary, taxType.toUpperCase(), taxAmount);
-        }
     }
 
     public void indexSalaryByDepartment(int departmentNumber, double percent) {
@@ -93,18 +88,6 @@ public class EmployeeBook {
                 continue;
             double newSalary = oldSalary + oldSalary * percent / 100;
             employee.setSalary(newSalary);
-        }
-    }
-    public void findFirstEmployeeByDepartmentAndSalary(int departmentNumber, double salaryThreshold) {
-        for (int i = 0; i < employees.length; i++) {
-            Employee employee = employees[i];
-            if (employee == null)
-                break;
-            if (employee.getDepartment().equals(departmentNumber) && employee.getSalary() > salaryThreshold) {
-                System.out.printf("First employee in department %d with salary > %.2f at position %d:%n", departmentNumber, salaryThreshold, i + 1);
-                employee.printShortInfo();
-                break;
-            }
         }
     }
 
